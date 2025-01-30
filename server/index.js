@@ -103,8 +103,7 @@ server.use('/orders', isAuth(), ordersRouter.router);
 server.get('*', (req, res) =>
   res.sendFile(path.resolve('build', 'index.html'))
 );
- 
-// Passport Strategies 
+  
 passport.use(
   'local',
   new LocalStrategy({ usernameField: 'email' }, async function (
@@ -112,7 +111,6 @@ passport.use(
     password,
     done
   ) {
-    // by default passport uses username
     console.log({ email, password });
     try {
       const user = await User.findOne({ email: email });

@@ -8,11 +8,11 @@ import {
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { updateUserAsync } from '../features/user/userSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   createOrderAsync,
   selectCurrentOrder,
-  selectStatus,
+  selectStatus, 
 } from '../features/order/orderSlice';
 import { selectUserInfo } from '../features/user/userSlice';
 import { Grid } from 'react-loader-spinner';
@@ -61,8 +61,9 @@ function Checkout() {
     setPaymentMethod(e.target.value);
   };
   const navigate=useNavigate();
+  const [shouldNavigate,setShouldNavigate]=useState(false);
 
-  const handleOrder = (e) => {
+  const handleOrder = async () => {
     if (selectedAddress && paymentMethod) {
       const order = {
         items,
@@ -76,12 +77,20 @@ function Checkout() {
         expirationDate,
         cvc
       };
-      dispatch(createOrderAsync(order,navigate));
+  
+      dispatch(createOrderAsync({ order, setShouldNavigate }));
+      
     } else {
       alert('Enter Address and Payment method');
     }
   };
 
+  useEffect(()=>{
+    if(shouldNavigate){
+      navigate("/my-orders");
+    }
+  },[shouldNavigate]);
+  
 
   return (
     <>

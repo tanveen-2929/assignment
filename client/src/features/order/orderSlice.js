@@ -25,14 +25,10 @@ function loadScript(src) {
 
 export const createOrderAsync = createAsyncThunk(
   'order/createOrder',
-
-  async (order,navigate) => {
-
+  async ({ order, setShouldNavigate }) => {
     const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
-
     if (!res) {
       alert('Razorpay failed to load!!');
-      return;
     }
 
     let response;
@@ -41,44 +37,44 @@ export const createOrderAsync = createAsyncThunk(
       console.log('Order created successfully', response);
     } catch (error) {
       console.error('Error creating order:', error);
-      return;
+      
     }
 
-    console.log("wefwf",response?.data?.id);
-    const id=response?.data?.id;
+    const id = response?.data?.id;
+    let paymentSuccess = false; // Track payment success
 
     const options = {
-      key: 'rzp_test_oSItdzvqy6kWyb', 
-      amount: order.totalAmount * 100, 
+      key: 'rzp_test_oSItdzvqy6kWyb',
+      amount: order.totalAmount * 100,
       currency: 'INR',
       name: 'Space cart',
       description: 'Thank you for purchasing the product',
-      handler: async(paymentResponse) =>{
-        const response=await capturePayment(order,id);
-        if(response?.data?.success){
-          navigate("/my-orders");
+      handler: async (paymentResponse) => {
+        const paymentCaptureResponse = await capturePayment(order, id);
+        if (paymentCaptureResponse?.data?.success) {
+          console.log("Payment successful!");
+          setShouldNavigate(true);
         }
       },
     };
-
-    console.log(options);
 
     try {
       if (window.Razorpay) {
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
-
-        paymentObject.on('payment.failed', function (failureResponse) {
+        paymentObject.on('payment.failed', (failureResponse) => {
           console.error('Payment failed:', failureResponse.error);
         });
       } else {
         console.error('Razorpay is not available.');
+        // return rejectWithValue('Razorpay is not available');
       }
     } catch (err) {
       console.error('Error opening Razorpay:', err);
+      // return rejectWithValue(err);
     }
+    console.log(paymentSuccess);
 
-    return response.data;
   }
 );
 
