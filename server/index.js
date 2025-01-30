@@ -29,6 +29,9 @@ const { env } = require('process');
  
 const endpointSecret = process.env.ENDPOINT_SECRET;
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+
 server.post(
   '/webhook',
   express.raw({ type: 'application/json' }),
