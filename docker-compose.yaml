@@ -1,0 +1,47 @@
+version: '3'
+services:
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"  
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    env_file:
+      - ./server/.env
+    restart: always
+    networks:
+      - app-network  
+
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"  
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - server  
+    restart: always
+    networks:
+      - app-network  
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017" 
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+    networks:
+      - app-network  
+
+volumes:
+  mongo-data:  
+
+networks:
+  app-network:  
+    driver: bridge

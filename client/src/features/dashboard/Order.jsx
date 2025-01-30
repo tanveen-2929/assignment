@@ -12,7 +12,7 @@ const OrderDash = () => {
     <div className="flex">
       <aside className="w-64 bg-white text-black h-screen">
         <h2 className="text-xl font-bold mb-4 text-center mt-4 text-[30px]">
-          3legant
+          Space Cart
         </h2>
         <nav className="p-0">
           <ul className="p-2">
