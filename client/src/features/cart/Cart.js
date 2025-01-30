@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { Grid } from 'react-loader-spinner';
 import Modal from '../common/Modal';
+import NavBar from '../navbar/Navbar';
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ export default function Cart() {
       {!items.length && cartLoaded && <Navigate to="/" replace={true}></Navigate>}
 
       <div>
+      <NavBar/>
         <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
             <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">

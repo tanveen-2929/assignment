@@ -16,6 +16,7 @@ import {
 } from "../features/order/orderSlice";
 import { selectUserInfo } from "../features/user/userSlice";
 import { Grid } from "react-loader-spinner";
+import NavBar from "../features/navbar/Navbar";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -119,6 +120,7 @@ function Checkout() {
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
           style={{ height: "auto" }}
         >
+         <NavBar/>
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
             <div className="lg:col-span-3">
               <form
