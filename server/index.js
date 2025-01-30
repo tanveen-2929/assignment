@@ -25,11 +25,9 @@ const path = require('path');
 const { Order } = require('./model/Order');
 const { env } = require('process');
 
-// Webhook
  
 const endpointSecret = process.env.ENDPOINT_SECRET;
 
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 server.post(
