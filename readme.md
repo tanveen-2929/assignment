@@ -29,7 +29,7 @@ Make sure you have the following installed:
 ### Steps
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Arjun123sh/assignment.git
+   https://github.com/tanveen-2929/assignment.git
    cd assignment
    ```
 2. Set up environment variables:
@@ -61,14 +61,6 @@ For testing payments with Razorpay, use the following details:
 - Browse products, add them to the cart, and proceed to checkout.
 - Track your orders from the user dashboard.
 - Admin users can manage products and orders.
-
-## Admin Credentials
-- **Email**: admin@gmail.com
-- **Password**: Admin1234
-
-## User Credentials
-- **Email**: arju12@gmail.com
-- **Password**: Endgame123
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
