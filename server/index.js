@@ -28,7 +28,13 @@ const { env } = require('process');
  
 const endpointSecret = process.env.ENDPOINT_SECRET;
 
-
+server.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 server.post(
   '/webhook',
@@ -87,6 +93,7 @@ server.use(
     saveUninitialized: false, // don't create session until something stored
   })
 );
+
 server.use(passport.authenticate('session'));
 server.use(
   cors({
